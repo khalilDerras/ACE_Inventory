@@ -27,6 +27,14 @@ todoRoutes.route('/add').post(function(req, res) {
             res.status(400).send('adding new todo failed');
         });
 });
+todoRoutes.route('/delete/:id').post(function(req, res) {
+    Todo.findByIdAndDelete(req.params.id, function(err, todo) {
+            if (err) 
+                res.status(404).send("Delete Not Possible");
+            else
+                res.json("todo deleted");
+    });
+});
 todoRoutes.route('/update/:id').post(function(req, res) {
     Todo.findById(req.params.id, function(err, todo) {
         if (!todo)
