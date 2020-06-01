@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = 4000;
 
-var todoRouter = require('./routes/todoRouter');
+var productRouter = require('./routes/productRouter');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,7 +15,7 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 
-app.use('/todos', todoRouter);
+app.use('/products', productRouter);
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
 });
