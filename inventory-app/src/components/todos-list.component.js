@@ -8,11 +8,17 @@ const Todo = props => (
         <td>{props.todo.todo_responsible}</td>
         <td>{props.todo.todo_priority}</td>
         <td>
-            <Link to={"/edit/"+props.todo._id}>Edit</Link>
+            <Link to={"/edit/"+props.todo._id}>Edit </Link>
+            <Link to="/" onClick={() => deleteItem(props.todo._id)}>Delete</Link>
         </td>
     </tr>
 )
-
+function deleteItem (id){
+    axios.post('http://localhost:4000/todos/delete/'+id);
+    this.setState({
+        todos: this.state.todos.filter(todo => todo._id !== id)
+      });
+}
 export default class TodosList extends Component {
 
     constructor(props) {
