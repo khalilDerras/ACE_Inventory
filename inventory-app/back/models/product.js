@@ -21,6 +21,9 @@ let Product = new Schema({
     },
     prixDach: {
         type: Number
+    },
+    q: {
+        type: Number
     }
 });
 module.exports = mongoose.model('Product', Product);

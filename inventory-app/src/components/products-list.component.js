@@ -26,13 +26,14 @@ export default class ProductsList extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {products: []};
+        this.state = {products: [] , filtred : []};
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
         axios.get('http://localhost:4000/products/')
             .then(response => {
-                this.setState({ products: response.data });
+                this.setState({ products: response.data , filtred : response.data});
             })
             .catch(function (error){
                 console.log(error);
@@ -40,15 +41,34 @@ export default class ProductsList extends Component {
     }
 
     productList() {
-        return this.state.products.map(function(currentProduct, i){
+        return this.state.filtred.map(function(currentProduct, i){
             return <Product product={currentProduct} key={i} />;
         })
     }
+    handleChange(e) {
+    let currentList = [];
+    let newList = [];
+
+    if (e.target.value !== "") {
+        currentList = this.state.products;
+        newList = currentList.filter(item => {
+        const lc = item.nom.toLowerCase();
+        const filter = e.target.value.toLowerCase();
+        return lc.includes(filter);
+      });
+    } else {
+        newList = this.state.products;
+}
+this.setState({
+    filtred: newList
+});
+}
 
     render() {
         return (
             <div>
                 <h3>Products List</h3>
+                <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
                 <table className="table table-striped" style={{ marginTop: 20 }} >
                     <thead>
                         <tr>
