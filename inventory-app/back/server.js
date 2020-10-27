@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const PORT = 4000;
 
 var productRouter = require('./routes/productRouter');
+var factureRouter = require('./routes/factureRouter');
+
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -16,6 +18,8 @@ connection.once('open', function() {
 })
 
 app.use('/products', productRouter);
+app.use('/factures', factureRouter);
+
 app.listen(PORT, function() {
     console.log("Server is running on Port: " + PORT);
 });
